@@ -1,23 +1,15 @@
-function [X_rect,Y_rect] = identification(X,Y)
+function [H] = identification(X_1,Y_1, X_2, Y_2)
 
-% points repères du quadrangle donnent points repère du rectangle
+% On retourne H la matrice d'homographie
+A = zeros(8,8);
+B = zeros(1,8);
+for i = 1:4
+    A(2*i -1) = [X_1(i) Y_1(i) 1 0 0 0 -X_1(i)*X_2(i) -Y_1(i)*Y_2(i)];
+    A(2*i) = [0 0 0 X_1(i) Y_1(i) 1 -X_1(i)*Y_2(i) -Y_1(i)*Y_2(i)];
+    B(2*i -1) = X_2(i);
+    B(2*i) = Y_2(i);
+end
 
-X_rect = zeros(1,4);
-Y_rect = zeros(1,4);
-
-X_rect(1) = 1;
-Y_rect(1) = 1;
-
-dist_x = round(sqrt((X(2) - X(1))^2 + (Y(2) - Y(1))^2 ));
-dist_y = round(sqrt((X(3) - X(1))^2 + (Y(3) - Y(1))^2 ));
-
-X_rect(2) = X_rect(1) + dist_x;
-Y_rect(2) = Y_rect(1);
-
-X_rect(3) = X_rect(1);
-Y_rect(3) = Y_rect(1) + dist_y;
-
-X_rect(4) = X_rect(2);
-Y_rect(4) = Y_rect(3);
+H = A\B;
 
 end
