@@ -1,4 +1,4 @@
-function [H] = identification(X_1,Y_1, X_2, Y_2)
+function [H_enforme] = identification(X_1,Y_1, X_2, Y_2)
 
 % On retourne H la matrice d'homographie
 A = zeros(8,8);
@@ -11,5 +11,19 @@ for i = 1:4
 end
 
 H = A\B';
+
+H_enforme = zeros(3,3);
+
+k = 1;
+for i = 1 : length(H_enforme)
+    for j = 1 : length(H_enforme)
+        if ((i == 3) && (j == 3))
+            H_enforme(i,j) = 1;
+        else
+            H_enforme(i,j) = H(k);
+            k = k + 1;
+        end
+    end
+end
 
 end
