@@ -6,9 +6,11 @@ clc
 
 IMG = imread("photo.jpeg");
 
-X_2 = [0, 0, 1, 1];
+X_2 = [0, 1, 0, 1];
 
-Y_2 = [0, 1, 0, 1];
+Y_2 = [0, 0, 1, 1];
+
+% Prendre les points dans le sens horaire en partant d'en haut à gauche
 
 %% 3.1 Travaux péparatoires sur l'homographie
 
@@ -21,9 +23,3 @@ title('Choix des sommets du quadrangle');
 H = identification(X, Y, X_2, Y_2);
 
 close;
-
-
-X2 = [0,1,0,1];
-Y2 = [0,0,1,1];
-
-H = identification(x,y,X2,Y2);
