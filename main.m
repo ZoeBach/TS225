@@ -16,3 +16,7 @@ title('Choix des sommets du quadrangle');
 close;
 
 
+X2 = [0,1,0,1];
+Y2 = [0,0,1,1];
+
+H = identification(x,y,X2,Y2);
