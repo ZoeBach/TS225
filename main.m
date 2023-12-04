@@ -14,11 +14,13 @@ Y_2 = [0, 0, 1, 1];
 
 %% 3.1 Travaux péparatoires sur l'homographie
 
+
 % Choix des sommets du quadrangle
 
 imshow(IMG);
 title('Choix des sommets du quadrangle');
-[X, Y] = ginput;
+[X, Y] = ginput(4);
+close;
 
 H = identification(X, Y, X_2, Y_2);
 H_gpt = identification2(X, Y, X_2, Y_2);

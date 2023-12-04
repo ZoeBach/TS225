@@ -10,9 +10,7 @@ for i = 1:4
     B(1,2*i) = Y_2(i);
 end
 H = A\B';
-
 h = [H;1];
-
 H_enforme = reshape(h,3,3)';
 
 end
