@@ -11,7 +11,7 @@ for i = 1:4
 end
 
 H = A\B';
-
+    
 H_enforme = zeros(3,3);
 
 k = 1;
