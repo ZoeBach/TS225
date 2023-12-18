@@ -16,15 +16,15 @@ imshow(img);
 title('Choix des sommets du premier quadrangle');
 [x, y] = ginput(4);
 
-h = calculer_homographie(x, y, x_2, y_2);
+h = identification2(x, y, x_2, y_2);
 
 title('Choix des sommets du second quadrangle');
 [x2, y2] = ginput(4);
-h2 = calculer_homographie(x2, y2, x_2, y_2);
+h2 = identification2(x2, y2, x_2, y_2);
 
 % Appliquer la homographie pour adapter le contenu des quadrangles
-img_transformee1 = appliquer_homographie(img, h, largeur_rect, hauteur_rect);
-img_transformee2 = appliquer_homographie(img, h2, largeur_rect, hauteur_rect);
+img_transformee1 = homographie2(img, h, largeur_rect, hauteur_rect);
+img_transformee2 = homographie2(img, h2, largeur_rect, hauteur_rect);
 
 % Masques pour les deux quadrangles
 m1 = [x y]; % Premier quadrangle
@@ -43,7 +43,7 @@ title('Image avec les deux quadrangles échangés');
 
 %% Fonctions
 
-function h = calculer_homographie(x, y, x_2, y_2)
+function h = identification2(x, y, x_2, y_2)
     n = length(x);
     a = [];
     b = [];
@@ -58,7 +58,7 @@ function h = calculer_homographie(x, y, x_2, y_2)
     h = reshape(h, 3, 3)';
 end
 
-function img_transformee = appliquer_homographie(img, h, largeur_rect, hauteur_rect)
+function img_transformee = homographie2(img, h, largeur_rect, hauteur_rect)
     [lignes, colonnes, ~] = size(img);
     img_transformee = zeros(hauteur_rect, largeur_rect, size(img, 3), 'like', img);
 
@@ -71,13 +71,13 @@ function img_transformee = appliquer_homographie(img, h, largeur_rect, hauteur_r
             y = src_coords(2);
 
             if x >= 1 && x <= colonnes && y >= 1 && y <= lignes
-                img_transformee(i, j, :) = interpoler_bilineaire(img, x, y);
+                img_transformee(i, j, :) = interpol(img, x, y);
             end
         end
     end
 end
 
-function pixel = interpoler_bilineaire(img, x, y)
+function pixel = interpol(img, x, y)
     [lignes, colonnes, ~] = size(img);
     x1 = floor(x);
     x2 = ceil(x);
